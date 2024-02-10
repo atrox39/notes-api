@@ -8,6 +8,7 @@ using notes.Respository;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<NotesContext>(options => options.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING")));
+builder.Services.AddAuthorization();
 builder.Services.AddAuthentication("Bearer").AddJwtBearer(opt => {
   var singning = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET")!));
   var credentials = new SigningCredentials(singning, SecurityAlgorithms.HmacSha256Signature);
