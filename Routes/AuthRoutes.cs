@@ -24,14 +24,14 @@ namespace notes
       return TypedResults.Created();
     }
 
-    private static async Task<Results<Ok<TokenDTO>, UnauthorizedHttpResult>> Login(LoginDto loginDto, IAuthRepository authRepository) {
+    private static async Task<Results<Ok<TokenDTO>, UnauthorizedHttpResult>> Login(LoginDto loginDto, IAuthRepository authRepository, IJwtRepository jwtRepository) {
       loginDto.Password = Methods.EncryptSHA256Text(loginDto.Password); // Password to SHA256
       var user = await authRepository.Login(loginDto);
       if (user is null) {
         TypedResults.Unauthorized();
       }
       return TypedResults.Ok(new TokenDTO{
-        Token = "token!",
+        Token = jwtRepository.CreateToken(Environment.GetEnvironmentVariable("JWT_SECRET")!, user!),
       });
     } 
   }
