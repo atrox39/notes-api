@@ -33,6 +33,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.MapGet("/", () => "Simple Notes API");
+app.MapGet("/private", () => Results.Ok("This url is privated only view if you have a token")).RequireAuthorization();
 app.MapGroup("/api").MapApi();
 
 app.Run();
