@@ -7,10 +7,13 @@ using notes.Respository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<NotesContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+//builder.Services.AddDbContext<NotesContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+builder.Services.AddDbContext<NotesContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication("Bearer").AddJwtBearer(opt => {
-  var singning = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Secret"]!));
+  var singning = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTSecret"]!));
   var credentials = new SigningCredentials(singning, SecurityAlgorithms.HmacSha256Signature);
   opt.RequireHttpsMetadata = false;
   opt.TokenValidationParameters = new TokenValidationParameters
