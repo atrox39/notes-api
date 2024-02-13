@@ -2,6 +2,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using notes;
+using notes.Validations;
 using notes.Models;
 using notes.Respository;
 
