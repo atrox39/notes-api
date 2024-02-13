@@ -2,15 +2,18 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using notes;
+using notes.Validations;
 using notes.Models;
 using notes.Respository;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.GlobalValidator(); // For Global validations
+
 builder.Services.AddDbContext<NotesContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication("Bearer").AddJwtBearer(opt => {
-  var singning = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Secret"]!));
+  var singning = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTSecret"]!));
   var credentials = new SigningCredentials(singning, SecurityAlgorithms.HmacSha256Signature);
   opt.RequireHttpsMetadata = false;
   opt.TokenValidationParameters = new TokenValidationParameters

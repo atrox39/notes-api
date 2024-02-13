@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
+using FluentValidation;
 using notes.DTOs;
 using notes.Models;
 using notes.Respository;
@@ -15,7 +16,17 @@ namespace notes
       return group;
     }
 
-    private static async Task<Results<Created, BadRequest>> Create(RegisterDto registerDto, IAuthRepository authRepository, IMapper mapper) {
+    private static async Task<Results<Created, BadRequest, ValidationProblem>> Create(
+      RegisterDto registerDto,
+      IAuthRepository authRepository,
+      IMapper mapper,
+      IValidator<RegisterDto> validator
+    ) {
+      var results = await validator.ValidateAsync(registerDto);
+      if (!results.IsValid)
+      {
+        return TypedResults.ValidationProblem(results.ToDictionary());
+      }
       registerDto.Password = Methods.EncryptSHA256Text(registerDto.Password); // Password to SHA256
       var result = await authRepository.Create(mapper.Map<Users>(registerDto));
       if (!result) {
@@ -24,14 +35,25 @@ namespace notes
       return TypedResults.Created();
     }
 
-    private static async Task<Results<Ok<TokenDTO>, UnauthorizedHttpResult>> Login(LoginDto loginDto, IAuthRepository authRepository, IJwtRepository jwtRepository) {
+    private static async Task<Results<Ok<TokenDTO>, UnauthorizedHttpResult, ValidationProblem>> Login(
+      LoginDto loginDto,
+      IValidator<LoginDto> validator,
+      IAuthRepository authRepository,
+      IJwtRepository jwtRepository,
+      IConfiguration configuration
+    ) {
+      var results = await validator.ValidateAsync(loginDto);
+      if (!results.IsValid)
+      {
+        return TypedResults.ValidationProblem(results.ToDictionary());
+      }
       loginDto.Password = Methods.EncryptSHA256Text(loginDto.Password); // Password to SHA256
       var user = await authRepository.Login(loginDto);
       if (user is null) {
         TypedResults.Unauthorized();
       }
       return TypedResults.Ok(new TokenDTO{
-        Token = jwtRepository.CreateToken(Environment.GetEnvironmentVariable("JWT_SECRET")!, user!),
+        Token = jwtRepository.CreateToken(configuration["JWTSecret"]!, user!),
       });
     } 
   }
