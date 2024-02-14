@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddDbContext<NotesContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddDbContext<NotesContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
+builder.GlobalValidator();// To use Validations service in the app
 
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication("Bearer").AddJwtBearer(opt => {
@@ -27,7 +28,7 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer(opt => {
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IJwtRepository, JwtRepository>();
 
-builder.Services.AddCors();
+//builder.Services.AddCors();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
