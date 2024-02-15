@@ -47,10 +47,9 @@ namespace notes.Routes
       {
         return TypedResults.ValidationProblem(results.ToDictionary());
       }
-      loginDto.Password = Methods.EncryptSHA256Text(loginDto.Password); // Password to SHA256
       var user = await authRepository.Login(loginDto);
       if (user is null) {
-        TypedResults.Unauthorized();
+        return TypedResults.Unauthorized();
       }
       return TypedResults.Ok(new TokenDTO{
         Token = jwtRepository.CreateToken(configuration["JWTSecret"]!, user!),
