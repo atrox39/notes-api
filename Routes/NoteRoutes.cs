@@ -4,10 +4,8 @@ using notes.DTOs.Note;
 using FluentValidation;
 using AutoMapper;
 using notes.Models;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
 using notes.Utils;
-using System.Net.Http;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace notes.Routes
 {
@@ -16,7 +14,7 @@ namespace notes.Routes
     public static RouteGroupBuilder MapNotes(this RouteGroupBuilder group)
     {
       group.MapPost("/", Create);
-      group.MapGet("/", ListAll);
+      group.MapGet("/", ListAll).CacheOutput(x => x.Expire(TimeSpan.FromMinutes(30)).Tag("Note-All"));
       group.MapGet("/{id:int}", GetByID);
       group.MapPut("/{id:int}", UpdateByID);
       group.MapDelete("/{id:int}", DeleteByID);
@@ -28,7 +26,8 @@ namespace notes.Routes
       IMapper mapper,
       INoteRepository noteRepository,
       IValidator<NoteCreateDto> validator,
-      HttpContext httpContext
+      HttpContext httpContext,
+      IOutputCacheStore cacheStore
     )
     {
       var results = await validator.ValidateAsync(noteCreateDto);
@@ -42,6 +41,7 @@ namespace notes.Routes
       {
         return TypedResults.BadRequest();
       }
+      await cacheStore.EvictByTagAsync("Note-All", default);
       return TypedResults.Created($"/notes/{note.Id}", mapper.Map<NoteDto>(note));
     }
 
@@ -76,13 +76,15 @@ namespace notes.Routes
       NoteUpdateDto noteUpdateDto,
       IMapper mapper,
       INoteRepository noteRepository,
-      HttpContext httpContext
+      HttpContext httpContext,
+      IOutputCacheStore cacheStore
     )
     {
       int userID = Methods.GetUserID(httpContext);
       bool result = await noteRepository.UpdateById(id, userID, mapper.Map<Note>(noteUpdateDto));
       if (result)
       {
+        await cacheStore.EvictByTagAsync("Note-All", default);
         return TypedResults.NoContent();
       }
       return TypedResults.BadRequest();
@@ -91,11 +93,13 @@ namespace notes.Routes
     private static async Task<Ok> DeleteByID(
       int id,
       INoteRepository noteRepository,
-      HttpContext httpContext
+      HttpContext httpContext,
+      IOutputCacheStore cacheStore
     )
     {
       int userID = Methods.GetUserID(httpContext);
       await noteRepository.DeleteById(id, userID);
+      await cacheStore.EvictByTagAsync("Note-All", default);
       return TypedResults.Ok();
     }
   }
