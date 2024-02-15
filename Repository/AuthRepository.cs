@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using notes.DTOs;
 using notes.Models;
+using notes.Utils;
 
 namespace notes.Repository
 {
@@ -24,8 +25,15 @@ namespace notes.Repository
 
     public async Task<Users?> Login(LoginDto loginDto)
     {
-      var user = await db.UserModel.FirstOrDefaultAsync(u => u.Email.ToLower() == loginDto.Email.ToLower() && u.Password.Equals(loginDto.Password));
-      return user;
+      var user = await db.UserModel.FirstOrDefaultAsync(u => u.Email == loginDto.Email);
+      if (user is null) {
+        return null;
+      }
+      if (user.Password.ToLower() == Methods.EncryptSHA256Text(loginDto.Password).ToLower())
+      {
+        return user;
+      }
+      return null;
     }
   }
 }
