@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using notes.DTOs;
 using notes.Models;
 
-namespace notes.Respository
+namespace notes.Repository
 {
   public interface IAuthRepository
   {
@@ -10,12 +10,8 @@ namespace notes.Respository
     public Task<Users?> Login(LoginDto loginDto);
   }
 
-  public class AuthRepository : IAuthRepository
+  public class AuthRepository(NotesContext db) : IAuthRepository
   {
-    private readonly NotesContext db;
-
-    public AuthRepository(NotesContext db) { this.db = db; }
-
     public async Task<bool> Create(Users user) {
       try {
         await db.UserModel.AddAsync(user);

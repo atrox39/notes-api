@@ -6,6 +6,7 @@ namespace notes.Models
   public partial class NotesContext : DbContext
   {
     public DbSet<Users> UserModel { get; set; }
+    public DbSet<Note> NoteModel { get; set; }
 
     public NotesContext(DbContextOptions<NotesContext> options) : base(options) { }
 
@@ -23,6 +24,10 @@ namespace notes.Models
         entity.HasIndex(e => e.Email).IsUnique();
       });
       modelBuilder.Entity<Users>().ToTable("tb_users"); // Table name
+      // Notes
+      modelBuilder.Entity<Note>().Property(property => property.Title).HasMaxLength(120);
+      modelBuilder.Entity<Note>().Property(property => property.Content).HasMaxLength(255);
+      modelBuilder.Entity<Note>().ToTable("tb_notes");
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

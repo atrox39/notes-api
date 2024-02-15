@@ -1,0 +1,60 @@
+[33mcommit 928d450e6e2175d7e805811886785f93d83b1f40[m[33m ([m[1;36mHEAD -> [m[1;32mcharlie[m[33m, [m[1;31morigin/charlie[m[33m)[m
+Author: carloserochav <rochavawave@gmail.com>
+Date:   Thu Feb 15 10:40:02 2024 -0800
+
+    test
+
+[33mcommit b5bd4bc715b87775bb1f17832e40bb8bc6592b87[m
+Author: carloserochav <rochavawave@gmail.com>
+Date:   Tue Feb 13 20:03:17 2024 -0800
+
+    Xunit library installed
+
+[33mcommit 1e0082c19b5e7897a0af1d02a8f561f5f1cc5a7e[m
+Merge: ca0011e 22431d0
+Author: carloserochav <rochavawave@gmail.com>
+Date:   Tue Feb 13 14:56:45 2024 -0800
+
+    Up to date merge
+
+[33mcommit ca0011e6de820e2a92f3321b7c28af3fdfcd52b0[m
+Author: carloserochav <rochavawave@gmail.com>
+Date:   Mon Feb 12 16:35:27 2024 -0800
+
+    Database switch
+
+[33mcommit 22431d000161f1742d06d6cb7fb0ea7c8b204f2a[m
+Author: Eddy Ortega <cofter11@gmail.com>
+Date:   Mon Feb 12 16:25:49 2024 -0800
+
+    feat: add fluent validation
+
+[33mcommit 533045c959116abca461807c6bcaf2519fb2a763[m
+Author: Eddy Ortega <cofter11@gmail.com>
+Date:   Mon Feb 12 09:49:47 2024 -0800
+
+    feat: configuration for jwt
+
+[33mcommit 6b1830f1068811af55528462fd61330f01728d8b[m
+Author: Eddy Ortega <cofter11@gmail.com>
+Date:   Fri Feb 9 20:16:44 2024 -0800
+
+    feat: missing authorization service
+
+[33mcommit 9b857d754eb084acf57b9de322497f94a71ed82f[m
+Author: Eddy Ortega <cofter11@gmail.com>
+Date:   Fri Feb 9 20:13:40 2024 -0800
+
+    feat: private api endpoint only for jwt testing
+
+[33mcommit a3e5f70e4717443b5a08286fed3551e3cd2a06c4[m
+Author: Eddy Ortega <cofter11@gmail.com>
+Date:   Fri Feb 9 20:10:41 2024 -0800
+
+    feat: jwt auth
+
+[33mcommit 35966f4540c35d26e2522b64c4e728def0153c97[m
+Author: Eddy Ortega <cofter11@gmail.com>
+Date:   Fri Feb 9 19:24:14 2024 -0800
+
+    feat: initial commit
