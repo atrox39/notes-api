@@ -16,5 +16,16 @@ namespace notes.Utils
       }
       return hash.ToString();
     }
+
+    public static int GetUserID(HttpContext httpContext)
+    {
+      try
+      {
+        return int.Parse(httpContext.User.Claims.FirstOrDefault(u => u.Type == "ID")!.Value);
+      } catch
+      {
+        return -1;
+      }
+    }
   }
 }

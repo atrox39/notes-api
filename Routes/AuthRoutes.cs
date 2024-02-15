@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using FluentValidation;
 using notes.DTOs;
 using notes.Models;
-using notes.Respository;
+using notes.Repository;
 using notes.Utils;
 
-namespace notes
+namespace notes.Routes
 {
   public static class AuthRoutes
   {
