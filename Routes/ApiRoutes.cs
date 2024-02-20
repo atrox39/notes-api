@@ -1,4 +1,4 @@
-namespace notes.Routes
+namespace Notes.Routes
 {
   public static class ApiRoutes
   {

@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
-using notes.Repository;
-using notes.DTOs.Note;
+using Notes.Repository;
 using FluentValidation;
 using AutoMapper;
-using notes.Models;
-using notes.Utils;
+using Notes.Utils;
 using Microsoft.AspNetCore.OutputCaching;
+using Notes.Data.Models;
+using Notes.Data.DTOs.Note;
 
-namespace notes.Routes
+namespace Notes.Routes
 {
   public static class NoteRoutes
   {

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using notes.DTOs;
+using Notes.Data.DTOs;
 
-namespace notes.Validations
+namespace Notes.Validations
 {
   public class LoginValidation : AbstractValidator<LoginDto>
   {

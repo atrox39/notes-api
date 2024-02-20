@@ -1,7 +1,7 @@
 using System.Net.WebSockets;
 using System.Text;
 
-namespace notes
+namespace Notes
 {
   public class WebSocketController (RequestDelegate next)
   {

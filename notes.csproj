@@ -32,4 +32,8 @@
   <ItemGroup>
     <None Remove="Validations\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Notes.Data\Notes.Data.csproj" />
+  </ItemGroup>
 </Project>

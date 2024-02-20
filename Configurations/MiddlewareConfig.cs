@@ -1,4 +1,4 @@
-namespace notes.Configurations
+namespace Notes.Configurations
 {
   public static class MiddlewareConfig
   {

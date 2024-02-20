@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using notes.DTOs;
-using notes.DTOs.Note;
-using notes.Validations.Note;
+using Notes.Data.DTOs;
+using Notes.Data.DTOs.Note;
+using Notes.Validations.Note;
 
-namespace notes.Validations
+namespace Notes.Validations
 {
   public static class GlobalValidations
   {
@@ -12,7 +12,7 @@ namespace notes.Validations
       // User
       builder.Services.AddScoped<IValidator<LoginDto>, LoginValidation>();
       builder.Services.AddScoped<IValidator<RegisterDto>, RegisterValidation>();
-      builder.Services.AddScoped<IValidator<UserDTO>, UserValidation>();
+      builder.Services.AddScoped<IValidator<UserDto>, UserValidation>();
       // Notes
       builder.Services.AddScoped<IValidator<NoteCreateDto>, NoteCreateValidation>();
       return builder;

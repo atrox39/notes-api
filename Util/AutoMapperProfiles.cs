@@ -1,16 +1,16 @@
 using AutoMapper;
-using notes.Models;
-using notes.DTOs;
-using notes.DTOs.Note;
+using Notes.Data.Models;
+using Notes.Data.DTOs;
+using Notes.Data.DTOs.Note;
 
-namespace notes.Utils {
+namespace Notes.Utils {
   public class AutoMapperProfiles : Profile
   {
     public AutoMapperProfiles()
     {
       // User Mapper
-      CreateMap<Users, UserDTO>();
-      CreateMap<RegisterDto, Users>();
+      CreateMap<User, UserDto>();
+      CreateMap<RegisterDto, User>();
       // Note Mapper
       CreateMap<Note, NoteDto>();
       CreateMap<NoteCreateDto, Note>();

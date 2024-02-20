@@ -1,5 +1,5 @@
-using notes.Routes;
-using notes.Configurations;
+using Notes.Routes;
+using Notes.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.ServiceAppConfig();

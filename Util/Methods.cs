@@ -1,7 +1,7 @@
 using System.Text;
 using System.Security.Cryptography;
 
-namespace notes.Utils
+namespace Notes.Utils
 {
   public static class Methods
   {

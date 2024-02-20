@@ -1,11 +1,10 @@
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using notes.Models;
-using notes.Repository;
-using notes.Validations;
+using Notes.Repository;
+using Notes.Validations;
 
-namespace notes.Configurations
+namespace Notes.Configurations
 {
   public static class ServiceConfig
   {

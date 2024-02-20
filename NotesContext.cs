@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace notes.Models
+using Notes.Data.Models;
+
+namespace Notes
 {
 
   public partial class NotesContext : DbContext
   {
-    public DbSet<Users> UserModel { get; set; }
+    public DbSet<User> UserModel { get; set; }
     public DbSet<Note> NoteModel { get; set; }
 
     public NotesContext(DbContextOptions<NotesContext> options) : base(options) { }
@@ -14,16 +16,16 @@ namespace notes.Models
     {
       OnModelCreatingPartial(modelBuilder);
       // Max length
-      modelBuilder.Entity<Users>().Property(property => property.Username).HasMaxLength(40);
-      modelBuilder.Entity<Users>().Property(property => property.Email).HasMaxLength(120);
-      modelBuilder.Entity<Users>().Property(property => property.Password).HasMaxLength(120);
+      modelBuilder.Entity<User>().Property(property => property.Username).HasMaxLength(40);
+      modelBuilder.Entity<User>().Property(property => property.Email).HasMaxLength(120);
+      modelBuilder.Entity<User>().Property(property => property.Password).HasMaxLength(120);
       // Index
-      modelBuilder.Entity<Users>(entity =>
+      modelBuilder.Entity<User>(entity =>
       {
         entity.HasIndex(e => e.Username).IsUnique();
         entity.HasIndex(e => e.Email).IsUnique();
       });
-      modelBuilder.Entity<Users>().ToTable("tb_users"); // Table name
+      modelBuilder.Entity<User>().ToTable("tb_users"); // Table name
       // Notes
       modelBuilder.Entity<Note>().Property(property => property.Title).HasMaxLength(120);
       modelBuilder.Entity<Note>().Property(property => property.Content).HasMaxLength(255);

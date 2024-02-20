@@ -3,12 +3,12 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Notes;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using notes.Models;
 
 #nullable disable
 
-namespace notes.Migrations
+namespace Notes.Migrations
 {
     [DbContext(typeof(NotesContext))]
     partial class NotesContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace notes.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("notes.Models.Note", b =>
+            modelBuilder.Entity("Notes.Data.Models.Note", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,7 +50,7 @@ namespace notes.Migrations
                     b.ToTable("tb_notes", (string)null);
                 });
 
-            modelBuilder.Entity("notes.Models.Users", b =>
+            modelBuilder.Entity("Notes.Data.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,9 +84,9 @@ namespace notes.Migrations
                     b.ToTable("tb_users", (string)null);
                 });
 
-            modelBuilder.Entity("notes.Models.Note", b =>
+            modelBuilder.Entity("Notes.Data.Models.Note", b =>
                 {
-                    b.HasOne("notes.Models.Users", "User")
+                    b.HasOne("Notes.Data.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserID");
 

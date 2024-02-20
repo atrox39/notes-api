@@ -1,7 +1,7 @@
-﻿using notes.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Notes.Data.Models;
 
-namespace notes.Repository
+namespace Notes.Repository
 {
   public interface INoteRepository
   {

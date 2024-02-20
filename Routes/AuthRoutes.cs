@@ -1,12 +1,12 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
 using FluentValidation;
-using notes.DTOs;
-using notes.Models;
-using notes.Repository;
-using notes.Utils;
+using Notes.Data.DTOs;
+using Notes.Data.Models;
+using Notes.Repository;
+using Notes.Utils;
 
-namespace notes.Routes
+namespace Notes.Routes
 {
   public static class AuthRoutes
   {
@@ -28,14 +28,14 @@ namespace notes.Routes
         return TypedResults.ValidationProblem(results.ToDictionary());
       }
       registerDto.Password = Methods.EncryptSHA256Text(registerDto.Password); // Password to SHA256
-      var result = await authRepository.Create(mapper.Map<Users>(registerDto));
+      var result = await authRepository.Create(mapper.Map<User>(registerDto));
       if (!result) {
         return TypedResults.BadRequest();
       }
       return TypedResults.Created();
     }
 
-    private static async Task<Results<Ok<TokenDTO>, UnauthorizedHttpResult, ValidationProblem>> Login(
+    private static async Task<Results<Ok<TokenDto>, UnauthorizedHttpResult, ValidationProblem>> Login(
       LoginDto loginDto,
       IValidator<LoginDto> validator,
       IAuthRepository authRepository,
@@ -51,7 +51,7 @@ namespace notes.Routes
       if (user is null) {
         return TypedResults.Unauthorized();
       }
-      return TypedResults.Ok(new TokenDTO{
+      return TypedResults.Ok(new TokenDto{
         Token = jwtRepository.CreateToken(configuration["JWTSecret"]!, user!),
       });
     } 

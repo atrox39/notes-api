@@ -1,21 +1,20 @@
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
-using notes.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
-using Microsoft.AspNetCore.DataProtection;
+using Notes.Data.Models;
 
-namespace notes.Repository
+namespace Notes.Repository
 {
   public interface IJwtRepository
   {
-    public string CreateToken(string key, Users user);
+    public string CreateToken(string key, User user);
     public ClaimsPrincipal? GetPrincipal(string key, string token);
   }
 
   public class JwtRepository : IJwtRepository
   {
-    public string CreateToken(string key, Users user)
+    public string CreateToken(string key, User user)
     {
       var tokenHandler = new JwtSecurityTokenHandler();
       var byteKey = Encoding.UTF8.GetBytes(key);
@@ -23,8 +22,9 @@ namespace notes.Repository
       {
         Subject = new ClaimsIdentity(new Claim[]
         {
-        new Claim(ClaimTypes.Email, user.Email),
-        new Claim("ID", user.Id.ToString()),
+          new Claim(ClaimTypes.Name, user.Username),
+          new Claim(ClaimTypes.Email, user.Email),
+          new Claim("ID", user.Id.ToString()),
         }),
         Expires = DateTime.UtcNow.AddMonths(1),
         SigningCredentials = new SigningCredentials(

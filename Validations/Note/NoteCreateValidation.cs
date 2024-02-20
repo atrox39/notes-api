@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using notes.DTOs.Note;
+using Notes.Data.DTOs.Note;
 
-namespace notes.Validations.Note
+namespace Notes.Validations.Note
 {
   public class NoteCreateValidation : AbstractValidator<NoteCreateDto>
   {
